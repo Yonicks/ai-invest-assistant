@@ -3,7 +3,10 @@
     "declarationMap": true,
     "importHelpers": true,
     "isolatedModules": true,
-    "lib": ["es2020", "dom"],   // <--- add this line!
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "noEmitOnError": true,
@@ -18,7 +21,9 @@
       "@ai-invest-assistant/shared-angular": [
         "libs/shared-angular/src/index.ts"
       ],
-      "@ai-invest-assistant/shared-node": ["libs/shared-node/src/index.ts"]
+      "@ai-invest-assistant/shared-node": [
+        "libs/shared-node/src/index.ts"
+      ]
     }
   }
 }
