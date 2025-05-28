@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "target": "es2022",
+    "composite": true,
+    "declaration": true,
+    "module": "esnext",        // <-- IMPORTANT!
+    "moduleResolution": "node", // <-- Usually present
+    "baseUrl": "./",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,

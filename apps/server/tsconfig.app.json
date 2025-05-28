@@ -1,8 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./",
+    "composite": true,
+    "emitDeclarationOnly": true,
     "outDir": "../../dist/out-tsc",
-    "module": "commonjs",
+    "module": "NodeNext",
     "types": ["node"]
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
