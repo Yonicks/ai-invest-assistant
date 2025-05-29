@@ -31,4 +31,29 @@ export class AuthService {
       createdAt: data.created_at ? new Date(data.created_at) : new Date(),
     };
   }
+
+
+  async login(email: string, password: string): Promise<User> {
+    // 1. Lookup user by email
+    const { data: userRow, error } = await supabase
+      .from('users')
+      .select('id, email, password_hash, created_at')
+      .eq('email', email)
+      .maybeSingle();
+
+    if (error) throw new Error(error.message);
+    if (!userRow) throw new Error('User not found');
+
+    // 2. Compare password
+    const isMatch = await bcrypt.compare(password, userRow.password_hash);
+    if (!isMatch) throw new Error('Invalid credentials');
+
+    // 3. Return user info (no password hash!)
+    return {
+      id: userRow.id,
+      email: userRow.email,
+      createdAt: new Date(userRow.created_at),
+    };
+  }
 }
+
