@@ -21,12 +21,12 @@ import { AuthState } from './store/auth.reducer';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, InputComponent, SpinnerComponent, AsyncPipe],
   template: `
-    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="flex flex-col items-center justify-center">
       <app-spinner *ngIf="loading$ | async"></app-spinner>
       <form
         [formGroup]="signUpForm"
         (ngSubmit)="onSubmit()"
-        class="w-full max-w-sm bg-white p-8 rounded-xl shadow-md space-y-6"
+        class="w-full min-w-80 max-w-80 bg-white p-8 rounded-xl shadow-md space-y-6"
         autocomplete="off"
         [class.opacity-50]="loading$ | async" [attr.aria-disabled]="loading$ | async">
         <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">{{ ui.title }}</h2>
@@ -126,7 +126,6 @@ export class SignUpComponent {
 
 
   onSubmit() {
-    debugger
     if (this.signUpForm.valid) {
       const { email, password } = this.signUpForm.value;
       // TODO: Dispatch register action (NgRx)

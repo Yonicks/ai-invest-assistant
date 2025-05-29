@@ -23,7 +23,7 @@ export class AuthEffects {
       switchMap(({ email, password }) =>
         this.authService.register(email, password).pipe(
           map((user: User) => AuthActions.registerSuccess({ user })),
-          catchError(error => of(AuthActions.registerFailure({ error: error.message || 'Unknown error' })))
+          catchError(error => of(AuthActions.registerFailure({ error: error.error?.error || 'Unknown error' })))
         )
       )
     )
