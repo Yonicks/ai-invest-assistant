@@ -11,12 +11,12 @@ import { CommonModule } from '@angular/common';
       <label [for]="id" class="input-label">{{ label }}</label>
       <input
         [type]="type"
-        [formControl]="formControl"
+        [formControl]="control"
         [id]="id"
         [placeholder]="placeholder"
         class="input-field"
       />
-      <div *ngIf="formControl?.invalid && (formControl?.dirty || isTouched())" class="input-error">
+      <div *ngIf="control?.invalid && (control?.dirty || isTouched())" class="input-error">
         <ng-content></ng-content>
       </div>
     </div>
@@ -56,11 +56,11 @@ export class InputComponent {
   @Input() label!: string;
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
-  @Input() formControl!: FormControl;
+  @Input() control!: FormControl;
   @Input() id: string = '';
 
 
   isTouched = () =>{
-    (this.formControl as any)?.touched
+    (this.control as any)?.touched
   }
 }

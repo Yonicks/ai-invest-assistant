@@ -22,7 +22,7 @@ import { UI_TEXTS } from '../../shared/constants';
       [label]="ui.emailLabel"
       type="email"
       [placeholder]="ui.emailPlaceholder"
-      [formControl]="emailControl"
+      [control]="emailControl"
       id="email"
     >
       {{ ui.errors.emailRequired }}
@@ -32,7 +32,7 @@ import { UI_TEXTS } from '../../shared/constants';
       [label]="ui.passwordLabel"
       type="password"
       [placeholder]="ui.passwordPlaceholder"
-      [formControl]="passwordControl"
+      [control]="passwordControl"
       id="password"
     >
       {{ ui.errors.passwordRequired }}
@@ -42,7 +42,7 @@ import { UI_TEXTS } from '../../shared/constants';
       [label]="ui.confirmPasswordLabel"
       type="password"
       [placeholder]="ui.confirmPasswordPlaceholder"
-      [formControl]="confirmPasswordControl"
+      [control]="confirmPasswordControl"
       id="confirmPassword"
     >
   <span *ngIf="signUpForm.hasError('mismatch') && isConfirmPasswordControlTouched()">
