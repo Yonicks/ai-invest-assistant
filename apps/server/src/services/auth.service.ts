@@ -1,19 +1,34 @@
 import bcrypt from 'bcryptjs';
+import { supabase } from '../supabaseClient';
 import { User } from '../models/user.model';
 
 export class AuthService {
   async register(email: string, password: string): Promise<User> {
-    // TODO: Check if user already exists (demo skips DB)
-    // Hash the password (salt rounds = 10, can be changed)
+    // 1. Check if user already exists
+    const { data: existing, error: findError } = await supabase
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .maybeSingle();
+    if (existing) throw new Error('User already exists');
+    console.log(`findError: ${findError}`);
+    // 2. Hash the password
     const passwordHash = await bcrypt.hash(password, 10);
-    console.log(`passwordHash: ${passwordHash}`);
-    // In real app: Save {email, passwordHash} to DB
-    // Here: Just return a mock user object
+
+    // 3. Insert into Supabase
+    const { data, error } = await supabase
+      .from('users')
+      .insert([{ email, password_hash: passwordHash }])
+      .select()
+      .single();
+
+    if (error) throw new Error(error.message);
+
+    // 4. Return user object (omit password hash)
     return {
-      id: Date.now().toString(),
-      email,
-      createdAt: new Date(),
-      // Don't return passwordHash to client!
+      id: data.id,
+      email: data.email,
+      createdAt: data.created_at ? new Date(data.created_at) : new Date(),
     };
   }
 }

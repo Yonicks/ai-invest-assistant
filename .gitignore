@@ -44,3 +44,17 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+/apps/server/supabase/.temp/cli-latest
+/apps/server/supabase/.temp/gotrue-version
+/apps/server/supabase/.temp/pooler-url
+/apps/server/supabase/.temp/postgres-version
+/apps/server/supabase/.temp/project-ref
+/apps/server/supabase/.temp/rest-version
+/apps/server/supabase/.temp/storage-version
+/supabase/.temp/cli-latest
+/supabase/.temp/gotrue-version
+/supabase/.temp/pooler-url
+/supabase/.temp/postgres-version
+/supabase/.temp/project-ref
+/supabase/.temp/rest-version
+/supabase/.temp/storage-version
