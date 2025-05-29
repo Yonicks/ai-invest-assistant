@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { InputComponent } from '../../shared/input.component';
 import { UI_TEXTS } from '../../shared/constants';
+import { register } from '../store/auth.actions';
 
 
 @Component({
@@ -16,50 +17,60 @@ import { UI_TEXTS } from '../../shared/constants';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, InputComponent],
   template: `
-    <h2 class="form-title">{{ ui.title }}</h2>
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <form
+        [formGroup]="signUpForm"
+        (ngSubmit)="onSubmit()"
+        class="w-full max-w-sm bg-white p-8 rounded-xl shadow-md space-y-6"
+        autocomplete="off"
+      >
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">{{ ui.title }}</h2>
 
-    <app-input
-      [label]="ui.emailLabel"
-      type="email"
-      [placeholder]="ui.emailPlaceholder"
-      [control]="emailControl"
-      id="email"
-    >
-      {{ ui.errors.emailRequired }}
-    </app-input>
+        <app-input
+          [label]="ui.emailLabel"
+          type="email"
+          [placeholder]="ui.emailPlaceholder"
+          [control]="emailControl"
+          id="email"
+        >
+          {{ ui.errors.emailRequired }}
+        </app-input>
 
-    <app-input
-      [label]="ui.passwordLabel"
-      type="password"
-      [placeholder]="ui.passwordPlaceholder"
-      [control]="passwordControl"
-      id="password"
-    >
-      {{ ui.errors.passwordRequired }}
-    </app-input>
+        <app-input
+          [label]="ui.passwordLabel"
+          type="password"
+          [placeholder]="ui.passwordPlaceholder"
+          [control]="passwordControl"
+          id="password"
+        >
+          {{ ui.errors.passwordRequired }}
+        </app-input>
 
-    <app-input
-      [label]="ui.confirmPasswordLabel"
-      type="password"
-      [placeholder]="ui.confirmPasswordPlaceholder"
-      [control]="confirmPasswordControl"
-      id="confirmPassword"
-    >
-  <span *ngIf="signUpForm.hasError('mismatch') && isConfirmPasswordControlTouched()">
-    {{ ui.errors.mismatch }}
-  </span>
-      <span *ngIf="confirmPasswordControl?.hasError('required') && isConfirmPasswordControlTouched()">
-    {{ ui.errors.confirmPasswordRequired }}
-  </span>
-    </app-input>
+        <app-input
+          [label]="ui.confirmPasswordLabel"
+          type="password"
+          [placeholder]="ui.confirmPasswordPlaceholder"
+          [control]="confirmPasswordControl"
+          id="confirmPassword"
+        >
+      <span *ngIf="signUpForm.hasError('mismatch') && isConfirmPasswordControlTouched()">
+        {{ ui.errors.mismatch }}
+      </span>
+          <span *ngIf="confirmPasswordControl?.hasError('required') && isConfirmPasswordControlTouched()">
+        {{ ui.errors.confirmPasswordRequired }}
+      </span>
+        </app-input>
 
-    <button
-      type="submit"
-      [disabled]="signUpForm.invalid"
-      class="submit-btn"
-    >
-      {{ ui.submit }}
-    </button>
+        <button
+          type="submit"
+          [disabled]="signUpForm.invalid"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {{ ui.submit }}
+        </button>
+      </form>
+    </div>
+
   `,
   styles: [``],
 })
@@ -96,10 +107,11 @@ export class SignUpComponent {
 
 
   onSubmit() {
+    debugger
     if (this.signUpForm.valid) {
       const { email, password } = this.signUpForm.value;
       // TODO: Dispatch register action (NgRx)
-      this.store.dispatch({ type: '[Auth] Register', email, password });
+      this.store.dispatch(register({ email, password }));
     }
   }
 

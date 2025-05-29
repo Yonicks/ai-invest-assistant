@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "../../dist/out-tsc",
+    "useDefineForClassFields": false ,
     "module": "esnext",
     "moduleResolution": "node",
     "types": []
