@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
-import { User } from '../auth.models';
+import { LoginResponse, User } from '../auth.models';
 
 export interface AuthState {
-  user: User | null;
+  user: User | LoginResponse | null;
   loading: boolean;
   error: string | null;
 }
@@ -32,5 +32,18 @@ export const authReducer = createReducer(
     ...state,
     loading: false,
     error,
-  }))
+  })),
+  on(AuthActions.login, (state) => ({ ...state, loading: true, error: null })),
+  on(AuthActions.loginSuccess, (state, { user }) => ({
+    ...state,
+    user,
+    loading: false,
+    error: null,
+  })),
+  on(AuthActions.loginFailure, (state, { error }) => ({
+    ...state,
+    user: null,
+    loading: false,
+    error,
+  })),
 );
