@@ -10,20 +10,25 @@ import { Store } from '@ngrx/store';
 import { InputComponent } from '../../shared/input.component';
 import { UI_TEXTS } from '../../shared/constants';
 import { register } from '../store/auth.actions';
+import { SpinnerComponent } from '../../shared/spinner.component';
+import { AsyncPipe } from '@angular/common';
+import { AuthState } from '../store/auth.reducer';
+
 
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputComponent],
+  imports: [CommonModule, ReactiveFormsModule, InputComponent, SpinnerComponent, AsyncPipe],
   template: `
     <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <app-spinner *ngIf="loading$ | async"></app-spinner>
       <form
         [formGroup]="signUpForm"
         (ngSubmit)="onSubmit()"
         class="w-full max-w-sm bg-white p-8 rounded-xl shadow-md space-y-6"
         autocomplete="off"
-      >
+        [class.opacity-50]="loading$ | async" [attr.aria-disabled]="loading$ | async">
         <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">{{ ui.title }}</h2>
 
         <app-input
@@ -69,6 +74,10 @@ import { register } from '../store/auth.actions';
           {{ ui.submit }}
         </button>
       </form>
+      <div *ngIf="error$ | async as error" class="text-red-600 mt-2 text-center">
+        {{ error }}
+      </div>
+
     </div>
 
   `,
@@ -76,10 +85,20 @@ import { register } from '../store/auth.actions';
 })
 export class SignUpComponent {
   ui = UI_TEXTS.auth.signUp;
+  loading$ = this.store.select((state: { auth: AuthState }) => state.auth.loading);
+  error$ = this.store.select((state: { auth: AuthState }) => state.auth.error);
+  state$ = this.store.select((state) => state);
+
+
 
   signUpForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store) {
+  constructor(private fb: FormBuilder, private store: Store<{ auth: AuthState }>) {
+
+    this.store.subscribe(state => {
+      console.log('Store changed!', state);
+    });
+
     this.signUpForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],

@@ -1,12 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
+import { User } from '../../shared/models';
 
 export interface AuthState {
+  user: User | null;
   loading: boolean;
   error: string | null;
 }
 
 export const initialState: AuthState = {
+  user: null,
   loading: false,
   error: null,
 };
