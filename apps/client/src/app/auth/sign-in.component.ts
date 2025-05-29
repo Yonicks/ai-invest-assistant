@@ -15,7 +15,7 @@ import { loginSuccess } from './store/auth.actions';
     <form
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
-      class="max-w-sm mx-auto mt-16 bg-white shadow-lg rounded-xl p-8 space-y-6"
+      class="min-w-80 max-w-80 mx-auto mt-16 bg-white shadow-lg rounded-xl p-8 space-y-6"
     >
       <h2 class="text-xl font-bold mb-4 text-center text-blue-700">Sign In</h2>
       <div>
