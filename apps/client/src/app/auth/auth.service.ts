@@ -15,9 +15,8 @@ export class AuthService {
 
   // Real API example:
   register(email: string, password: string): Observable<User> {
-    debugger;
     // Change this URL to your real API endpoint!
-    return this.http.post('/api/auth/register', { email, password })as Observable<User>;
+    return this.http.post(`${environment.apiBaseUrl}/api/auth/register`, { email, password })as Observable<User>;
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
