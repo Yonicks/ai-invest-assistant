@@ -1,14 +1,24 @@
 import { Request, Response } from 'express';
 import { AuthService } from '../services/auth.service';
+import { RegisterInput, RegisterSchema } from '../models/user.model';
 
 const authService = new AuthService();
 
 export async function signUp(req: Request, res: Response) {
   try {
-    const { email, password } = req.body;
+    // Validate input
+    const result = RegisterSchema.safeParse(req.body);
+    if (!result.success) {
+      // Flatten and join all error messages
+      const message = result.error.errors.map(e => e.message).join(', ');
+      return res.status(400).json({ error: message });
+    }
+    const { email, password } = result.data as RegisterInput;
+
+    // Register user (with password hashing)
     const user = await authService.register(email, password);
-    res.status(201).json(user);
+    return res.status(201).json(user);
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    return res.status(400).json({ error: err.message });
   }
 }
