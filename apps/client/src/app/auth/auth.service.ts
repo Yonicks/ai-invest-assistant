@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../shared/models';
+import { LoginResponse, User } from './auth.models';
+import { environment } from '../environments/environment';
+
 
 // import { User } from '../shared/models';
 
@@ -16,6 +18,10 @@ export class AuthService {
     debugger;
     // Change this URL to your real API endpoint!
     return this.http.post('/api/auth/register', { email, password })as Observable<User>;
+  }
+
+  login(email: string, password: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/auth/login`, { email, password });
   }
 
   // Mock version for testing/demo:

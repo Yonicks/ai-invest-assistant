@@ -4,7 +4,7 @@ import * as AuthActions from './auth.actions';
 import { AuthService } from '../auth.service'; // Service for API calls
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { User } from '../../shared/models';
+import { User } from '../auth.models';
 
 @Injectable()
 export class AuthEffects {

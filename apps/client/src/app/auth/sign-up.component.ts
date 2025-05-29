@@ -7,12 +7,12 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { InputComponent } from '../../shared/input.component';
-import { UI_TEXTS } from '../../shared/constants';
-import { register } from '../store/auth.actions';
-import { SpinnerComponent } from '../../shared/spinner.component';
+import { InputComponent } from '../shared/input.component';
+import { UI_TEXTS } from '../shared/constants';
+import { register } from './store/auth.actions';
+import { SpinnerComponent } from '../shared/spinner.component';
 import { AsyncPipe } from '@angular/common';
-import { AuthState } from '../store/auth.reducer';
+import { AuthState } from './store/auth.reducer';
 
 
 
