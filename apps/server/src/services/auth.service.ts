@@ -1,8 +1,13 @@
 import bcrypt from 'bcryptjs';
 import { supabase } from '../supabaseClient';
 import { User } from '../models/user.model';
+import jwt from 'jsonwebtoken';
+
+
 
 export class AuthService {
+  private jwtSecret = process.env.JWT_SECRET || 'your-default-secret'; // Use env var for real secret!
+
   async register(email: string, password: string): Promise<User> {
     // 1. Check if user already exists
     const { data: existing, error: findError } = await supabase
@@ -33,7 +38,10 @@ export class AuthService {
   }
 
 
-  async login(email: string, password: string): Promise<User> {
+  async login(email: string, password: string): Promise<{ user: User, token: string }> {
+
+
+
     // 1. Lookup user by email
     const { data: userRow, error } = await supabase
       .from('users')
@@ -48,12 +56,21 @@ export class AuthService {
     const isMatch = await bcrypt.compare(password, userRow.password_hash);
     if (!isMatch) throw new Error('Invalid credentials');
 
-    // 3. Return user info (no password hash!)
-    return {
+    const user = {
       id: userRow.id,
       email: userRow.email,
-      createdAt: new Date(userRow.created_at),
+      createdAt: userRow.created_at ? new Date(userRow.created_at) : new Date(),
     };
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      this.jwtSecret,
+      { expiresIn: '2h' }
+    );
+
+
+    // 3. Return user info (no password hash!)
+    return { user, token };
+
   }
 }
 

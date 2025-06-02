@@ -31,8 +31,9 @@ export async function login(req: Request, res: Response) {
       return res.status(400).json({ error: message });
     }
     const { email, password } = result.data;
-    const user = await authService.login(email, password);
-    return res.status(200).json(user);
+    // **Updated for JWT**
+    const { user, token } = await authService.login(email, password);
+    return res.status(200).json({ user, token });
   } catch (err: any) {
     return res.status(400).json({ error: err.message });
   }

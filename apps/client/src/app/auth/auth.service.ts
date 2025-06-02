@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { LoginResponse, User } from './auth.models';
 import { environment } from '../environments/environment';
 
-
 // import { User } from '../shared/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
   constructor(private http: HttpClient) {}
 
   // Real API example:
