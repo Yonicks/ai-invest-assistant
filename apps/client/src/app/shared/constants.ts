@@ -9,8 +9,8 @@ export const UI_TEXTS = {
       submit: 'Sign In',
       errors: {
         emailRequired: 'Email is required and must be valid.',
-        passwordRequired: 'Password is required.'
-      }
+        passwordRequired: 'Password is required.',
+      },
     },
     signUp: {
       title: 'Sign Up',
@@ -25,8 +25,10 @@ export const UI_TEXTS = {
         emailRequired: 'Email is required and must be valid.',
         passwordRequired: 'Password is required.',
         confirmPasswordRequired: 'Confirm Password is required.',
-        mismatch: 'Passwords do not match.'
-      }
-    }
-  }
+        mismatch: 'Passwords do not match.',
+      },
+    },
+  },
 };
+
+export const ACCESS_TOKEN_AND_USER_DATA = 'ACCESS_TOKEN_AND_USER_DATA';

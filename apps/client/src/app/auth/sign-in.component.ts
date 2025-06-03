@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthState } from './store/auth.reducer';
 import { loginSuccess } from './store/auth.actions';
+import { ACCESS_TOKEN_AND_USER_DATA } from '../shared/constants';
 
 @Component({
   selector: 'app-sign-in',
@@ -68,6 +69,7 @@ export class SignInComponent {
     const { email, password } = this.form.value;
     this.auth.login(email!, password!).subscribe({
       next: (user) => {
+        localStorage.setItem(ACCESS_TOKEN_AND_USER_DATA, JSON.stringify(user));
         this.store.dispatch(loginSuccess({ user }));
         this.error = null;
         this.router.navigateByUrl('/');

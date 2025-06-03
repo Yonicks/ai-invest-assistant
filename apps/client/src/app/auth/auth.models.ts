@@ -4,7 +4,5 @@ export interface User {
 }
 
 export interface LoginResponse {
-  id: string;
-  email: string;
-  createdAt: string;
+  token: string;
 }

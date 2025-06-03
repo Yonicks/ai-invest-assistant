@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 
 const jwtSecret = process.env.JWT_SECRET || 'yourSuperSecretKey';
 
+// @ts-ignore
 export function authenticateToken(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
