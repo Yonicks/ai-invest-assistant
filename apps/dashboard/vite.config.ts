@@ -12,7 +12,7 @@ export default defineConfig(() => ({
   /* ⚠️  Use a different port from the host */
   server: { port: 4301, host: 'localhost' },
   preview: { port: 4301, host: 'localhost' },
-
+  base: '/ai-invest-assistant/dashboard/',
   plugins: [
     react(),
     nxViteTsPaths(),

@@ -10,6 +10,7 @@ export default defineConfig(() => ({
   cacheDir: '../../node_modules/.vite/apps/upload',
   server: { port: 4302, host: 'localhost' },
   preview: { port: 4302, host: 'localhost' },
+  base: '/ai-invest-assistant/upload/',
   plugins: [
     react(),
     nxViteTsPaths(),
