@@ -38,7 +38,7 @@ jobs:
 
       # 4) Build only the projects that changed (still parallel)
       - name: Build micro-frontends
-        run: pnpm nx affected -t build --configuration=production --parallel
+        run: npm run mfe-build-all
 
       # 5) Collect static files for GitHub Pages
       - name: Assemble _site folder
