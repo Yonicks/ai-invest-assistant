@@ -10,7 +10,7 @@ export default function NavBar() {
     <header className="sticky top-0 z-10 bg-white shadow">
       <nav className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3">
         <NavLink
-          to="/"
+          to=""
           end
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
@@ -20,7 +20,7 @@ export default function NavBar() {
         </NavLink>
 
         <NavLink
-          to="/dashboard"
+          to="dashboard"
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
           }
@@ -29,7 +29,7 @@ export default function NavBar() {
         </NavLink>
 
         <NavLink
-          to="/upload"
+          to="upload"
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
           }
