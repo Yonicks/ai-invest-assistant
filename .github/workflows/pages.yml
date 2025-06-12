@@ -40,6 +40,9 @@ jobs:
       - name: Build micro-frontends
         run: npm run mfe-build-all
 
+      - name: Add 404.html for SPA fallback
+        run: cp dist/apps/host/index.html dist/apps/host/404.html
+
       # 5) Collect static files for GitHub Pages
       - name: Assemble _site folder
         run: |
