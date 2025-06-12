@@ -2,7 +2,7 @@ name: Deploy micro-frontends to GitHub Pages
 
 on:
   push:
-    branches: [main]          # adjust if default branch differs
+    branches: [main]            # adjust if your default branch differs
   workflow_dispatch:
 
 permissions:
@@ -17,28 +17,28 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_STEP_DEBUG: true
 
     steps:
-      # 1) Checkout
+      # 1) Check out the repo
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0      # keeps Nx 'affected' happy
+          fetch-depth: 0        # keeps Nx ‘affected’ happy
 
-      # 2) Node + npm cache
+      # 2) Set up Node
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm           # re-uses ~/.npm between runs
 
-      # 3) Install deps
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+      # 3) Install pnpm (v9) + enable its built-in cache
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          run_install: |
+            - args: [--frozen-lockfile, --prefer-offline]
 
-      # 4) Build host + remotes (parallel)
+      # 4) Build only the projects that changed (still parallel)
       - name: Build micro-frontends
-        run: npm run mfe-build-all
+        run: pnpm nx affected -t build --configuration=production --parallel
 
       # 5) Collect static files for GitHub Pages
       - name: Assemble _site folder
@@ -49,10 +49,10 @@ jobs:
           cp -r dist/apps/dashboard/*      _site/dashboard/
           cp -r dist/apps/upload/*         _site/upload/
 
-      # 6) Upload artefact
+      # 6) Upload the artefact
       - uses: actions/upload-pages-artifact@v3
         with:
-          name: gh-pages                 # optional, shows nicer in UI
+          name: gh-pages
           path: _site
 
       # 7) Publish to GitHub Pages
