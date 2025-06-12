@@ -2,7 +2,7 @@ name: Deploy micro-frontends to GitHub Pages
 
 on:
   push:
-    branches: [main]          # adjust if your default branch is different
+    branches: [main]          # adjust if default branch differs
   workflow_dispatch:
 
 permissions:
@@ -17,34 +17,43 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_STEP_DEBUG: true
 
     steps:
+      # 1) Checkout
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0      # keeps Nx ‘affected’ happy
+          fetch-depth: 0      # keeps Nx 'affected' happy
 
+      # 2) Node + npm cache
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: npm           # re-uses ~/.npm between runs
 
-      - run: npm ci
+      # 3) Install deps
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
 
-      # Build all three apps in parallel
-      - run: npm run mfe-build-all
+      # 4) Build host + remotes (parallel)
+      - name: Build micro-frontends
+        run: npm run mfe-build-all
 
-      # Assemble the GitHub Pages folder
-      - name: Copy dist outputs
+      # 5) Collect static files for GitHub Pages
+      - name: Assemble _site folder
         run: |
-          mkdir -p _site
-          cp -r dist/apps/host/*      _site/
-          mkdir -p _site/dashboard
-          cp -r dist/apps/dashboard/* _site/dashboard/
-          mkdir -p _site/upload
-          cp -r dist/apps/upload/*    _site/upload/
+          set -e
+          mkdir -p _site/dashboard _site/upload
+          cp -r dist/apps/host/*           _site/
+          cp -r dist/apps/dashboard/*      _site/dashboard/
+          cp -r dist/apps/upload/*         _site/upload/
 
+      # 6) Upload artefact
       - uses: actions/upload-pages-artifact@v3
         with:
+          name: gh-pages                 # optional, shows nicer in UI
           path: _site
 
+      # 7) Publish to GitHub Pages
       - uses: actions/deploy-pages@v4
