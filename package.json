@@ -15,6 +15,7 @@
     "lint:client": "nx lint client",
     "lint:server": "nx lint server",
     "host-build-preview": "nx build host && nx preview host",
+    "host-build-serve": "nx build host && nx serve host",
     "dashboard-build-preview": "nx build dashboard && nx preview dashboard",
     "dashboard-build-serve": "nx build dashboard && nx serve dashboard",
     "upload-build-preview": "nx build upload && nx preview upload",
