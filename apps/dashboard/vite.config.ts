@@ -10,7 +10,7 @@ export default defineConfig(() => ({
   cacheDir: '../../node_modules/.vite/apps/dashboard',
 
   /* ⚠️  Use a different port from the host */
-  server: { port: 4201, host: 'localhost' },
+  server: { port: 4301, host: 'localhost' },
   preview: { port: 4301, host: 'localhost' },
 
   plugins: [
