@@ -20,7 +20,7 @@ export default function NavBar() {
         </NavLink>
 
         <NavLink
-          to="dashboard"
+          to="dashboard/"
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
           }
@@ -29,7 +29,7 @@ export default function NavBar() {
         </NavLink>
 
         <NavLink
-          to="upload"
+          to="upload/"
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
           }
