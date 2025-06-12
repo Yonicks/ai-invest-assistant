@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import {  Routes, Route } from 'react-router-dom';
 
 const DashboardPage = React.lazy(() => import('dashboard/DashboardPage'));
+const UploadPage = React.lazy(() => import('upload/UploadPage'));
 
 export default function App() {
   return (
@@ -13,6 +14,14 @@ export default function App() {
           element={
             <Suspense fallback={<div>Loading dashboard…</div>}>
               <DashboardPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/upload/*"
+          element={
+            <Suspense fallback={<div>Loading dashboard…</div>}>
+              <UploadPage />
             </Suspense>
           }
         />
