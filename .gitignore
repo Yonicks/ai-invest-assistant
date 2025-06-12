@@ -58,3 +58,6 @@ Thumbs.db
 /supabase/.temp/project-ref
 /supabase/.temp/rest-version
 /supabase/.temp/storage-version
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
