@@ -1,0 +1,50 @@
+name: Deploy micro-frontends to GitHub Pages
+
+on:
+  push:
+    branches: [main]          # adjust if your default branch is different
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0      # keeps Nx ‘affected’ happy
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Build all three apps in parallel
+      - run: npm run mfe-build-all
+
+      # Assemble the GitHub Pages folder
+      - name: Copy dist outputs
+        run: |
+          mkdir -p _site
+          cp -r dist/apps/host/*      _site/
+          mkdir -p _site/dashboard
+          cp -r dist/apps/dashboard/* _site/dashboard/
+          mkdir -p _site/upload
+          cp -r dist/apps/upload/*    _site/upload/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - uses: actions/deploy-pages@v4
