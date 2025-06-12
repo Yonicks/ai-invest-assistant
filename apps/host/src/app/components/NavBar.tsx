@@ -5,12 +5,16 @@ const linkBase =
 const linkInactive = 'text-gray-600 hover:text-gray-900 hover:bg-gray-100';
 const linkActive = 'text-white bg-blue-600';
 
+// Use Vite's public base path, always ends with a slash
+// @ts-ignore
+const BASE = import.meta.env.BASE_URL;
+
 export default function NavBar() {
   return (
     <header className="sticky top-0 z-10 bg-white shadow">
       <nav className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3">
         <NavLink
-          to="/"
+          to={BASE}
           end
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
@@ -20,7 +24,7 @@ export default function NavBar() {
         </NavLink>
 
         <NavLink
-          to="/dashboard"
+          to={`${BASE}dashboard`}
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
           }
@@ -29,7 +33,7 @@ export default function NavBar() {
         </NavLink>
 
         <NavLink
-          to="/upload"
+          to={`${BASE}upload`}
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
           }
