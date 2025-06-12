@@ -29,8 +29,8 @@ export default defineConfig(({ mode }: { mode: string }) => {
             }
           : {
               // production / GitHub Pages -----------------
-              dashboard: '/dashboard/remoteEntry.js',
-              upload: '/upload/remoteEntry.js',
+            dashboard: '/ai-invest-assistant/dashboard/remoteEntry.js',
+            upload:    '/ai-invest-assistant/upload/remoteEntry.js',
             },
         shared: ['react', 'react-dom'],
       }),
