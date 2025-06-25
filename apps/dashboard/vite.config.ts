@@ -8,11 +8,9 @@ import federation from '@originjs/vite-plugin-federation';               // 👈
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/dashboard',
-
-  /* ⚠️  Use a different port from the host */
   server: { port: 4301, host: 'localhost' },
   preview: { port: 4301, host: 'localhost' },
-  base: '/ai-invest-assistant/dashboard/',
+  base: "/ai-invest-assistant/",
   plugins: [
     react(),
     nxViteTsPaths(),

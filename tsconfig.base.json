@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "declarationMap": true,
     "importHelpers": true,
     "isolatedModules": true,
@@ -12,12 +13,12 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
     "strict": true,
     "target": "es2022",
     "paths": {
-      "@ai-invest-assistant/shared-angular": [
-        "libs/shared-angular/src/index.ts"
-      ],
+      "@ai-invest-assistant/shared-angular": ["libs/shared-angular/src/index.ts"],
       "@ai-invest-assistant/shared-node": ["libs/shared-node/src/index.ts"]
     }
   }

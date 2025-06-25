@@ -7,7 +7,7 @@ import federation from '@originjs/vite-plugin-federation';
 
 export default defineConfig(({ mode }: { mode: string }) => {
   const isDev = mode === 'development'; // vite sets this for us
-
+  console.log(`defineConfig::: mode: ${mode}`);
   return {
     root: __dirname,
     cacheDir: '../../node_modules/.vite/apps/host',
@@ -23,10 +23,9 @@ export default defineConfig(({ mode }: { mode: string }) => {
         name: 'host',
         remotes: isDev
           ? {
-              // live dev servers --------------------------
-              dashboard: 'http://localhost:4301/assets/remoteEntry.js',
-              upload: 'http://localhost:4302/assets/remoteEntry.js',
-            }
+            dashboard: 'http://localhost:4301/ai-invest-assistant/assets/remoteEntry.js',
+            upload:    'http://localhost:4302/ai-invest-assistant/assets/remoteEntry.js',
+          }
           : {
               // production / GitHub Pages -----------------
             dashboard: '/ai-invest-assistant/dashboard/assets/remoteEntry.js',
